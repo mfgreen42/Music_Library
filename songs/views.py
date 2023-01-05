@@ -18,3 +18,11 @@ def song_list(request):
             songs = songs.filter(song_id=song_name)
         serializer = SongSerializer(songs, many=True)
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def song_detail(request, pk):
+    songs = get_object_or_404(Song, pk=pk)
+    if request.method == 'GET':
+        serializer = SongSerializer(songs)
+        return Response(serializer.data)
